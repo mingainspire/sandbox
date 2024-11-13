@@ -10,6 +10,7 @@ import TaskHistory from './components/TaskHistory';
 import SystemSettings from './components/SystemSettings';
 import ActiveSystems from './components/ActiveSystems';
 import NetworkHub from './components/NetworkHub';
+import EventTriggerBox from './components/EventTriggerBox';
 
 function App() {
   const [activeView, setActiveView] = useState<'dashboard' | 'guide' | 'history' | 'timeline' | 'settings' | 'active' | 'network'>('active');
@@ -41,6 +42,7 @@ function App() {
             <ActiveSystems />
             <TaskQueue />
             <ManagementControls />
+            <EventTriggerBox />
           </div>
         );
       default:
