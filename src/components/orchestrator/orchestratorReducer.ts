@@ -1,9 +1,13 @@
-import { OrchestratorState, OrchestratorAction, Task, Agent, TaskCreationParams, AgentCreationParams, TaskUpdateParams, AgentUpdateParams, ApprovalStatus } from './types';
+import { OrchestratorState, OrchestratorAction, Task, Agent, TaskCreationParams, AgentCreationParams, TaskUpdateParams, AgentUpdateParams, ApprovalStatus, Skill } from './types';
 
 const initialState: OrchestratorState = {
   activeConversation: false,
   tasks: [],
   agents: [],
+  skills: [],
+  tools: [],
+  systems: [],
+  frameworks: [],
   systemStatus: {
     agents: 0,
     activeTasks: 0,
@@ -34,6 +38,53 @@ type DevelopmentHistoryEntry = {
 
 export function orchestratorReducer(state: OrchestratorState = initialState, action: OrchestratorAction): OrchestratorState {
   switch (action.type) {
+    case 'CREATE_SKILL': {
+      const skill = action.payload as Skill;
+      return {
+        ...state,
+        skills: [...state.skills, skill],
+        systemStatus: {
+          ...state.systemStatus,
+          lastUpdate: new Date().toISOString()
+        }
+      };
+    }
+
+    case 'UPDATE_SKILL': {
+      const { skillId, updates } = action.payload as { skillId: string; updates: Partial<Skill> };
+      const updatedSkills = state.skills.map(skill => {
+        if (skill.id === skillId) {
+          return {
+            ...skill,
+            ...updates,
+            lastActive: new Date().toISOString()
+          };
+        }
+        return skill;
+      });
+
+      return {
+        ...state,
+        skills: updatedSkills,
+        systemStatus: {
+          ...state.systemStatus,
+          lastUpdate: new Date().toISOString()
+        }
+      };
+    }
+
+    case 'DELETE_SKILL': {
+      const skillId = action.payload as string;
+      return {
+        ...state,
+        skills: state.skills.filter(skill => skill.id !== skillId),
+        systemStatus: {
+          ...state.systemStatus,
+          lastUpdate: new Date().toISOString()
+        }
+      };
+    }
+
     case 'CREATE_AGENT': {
       const params = action.payload as AgentCreationParams;
       const newAgent: Agent = {
@@ -71,7 +122,9 @@ export function orchestratorReducer(state: OrchestratorState = initialState, act
             requireApprovalFor: params.behaviorControls?.requireApprovalFor || ['task_execution', 'capability_modification', 'integration'],
             automatedTasks: params.behaviorControls?.automatedTasks || [],
             restrictedActions: params.behaviorControls?.restrictedActions || [],
-            userOverrides: params.behaviorControls?.userOverrides ?? true
+            userOverrides: params.behaviorControls?.userOverrides ?? true,
+            promptSequences: params.behaviorControls?.promptSequences || [],
+            testScenarios: params.behaviorControls?.testScenarios || []
           },
           developmentHistory: []
         }
@@ -117,7 +170,9 @@ export function orchestratorReducer(state: OrchestratorState = initialState, act
               requireApprovalFor: updates.behaviorControls.requireApprovalFor || currentMetadata.behaviorControls?.requireApprovalFor || [],
               automatedTasks: updates.behaviorControls.automatedTasks || currentMetadata.behaviorControls?.automatedTasks || [],
               restrictedActions: updates.behaviorControls.restrictedActions || currentMetadata.behaviorControls?.restrictedActions || [],
-              userOverrides: updates.behaviorControls.userOverrides ?? currentMetadata.behaviorControls?.userOverrides ?? true
+              userOverrides: updates.behaviorControls.userOverrides ?? currentMetadata.behaviorControls?.userOverrides ?? true,
+              promptSequences: updates.behaviorControls.promptSequences || currentMetadata.behaviorControls?.promptSequences || [],
+              testScenarios: updates.behaviorControls.testScenarios || currentMetadata.behaviorControls?.testScenarios || []
             } : currentMetadata.behaviorControls
           };
 

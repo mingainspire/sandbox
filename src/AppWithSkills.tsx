@@ -14,10 +14,11 @@ import EventTriggerBox from './components/EventTriggerBox';
 import LoadingScreen from './components/LoadingScreen';
 import OrchestratorAPI from './components/orchestrator/OrchestratorAPI';
 import AgentMonitor from './components/agents/AgentMonitor';
+import SkillMonitor from './components/skills/SkillMonitor';
 import { IntegrationProvider } from './components/providers/IntegrationProvider';
 import { KnowledgeProvider } from './components/knowledge/KnowledgeProvider';
 
-function App() {
+function AppWithSkills() {
   const [activeView, setActiveView] = useState<'dashboard' | 'guide' | 'history' | 'timeline' | 'settings' | 'active' | 'network'>('active');
   const [darkMode, setDarkMode] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,6 +69,7 @@ function App() {
             <OrchestratorAPI />
             <ActiveSystems />
             <AgentMonitor />
+            <SkillMonitor />
             <TaskQueue />
             <ManagementControls />
             <EventTriggerBox />
@@ -168,4 +170,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppWithSkills;
