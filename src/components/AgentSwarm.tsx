@@ -20,6 +20,8 @@ interface SwarmAgent {
     avgResponseTime: number;
     successRate: number;
   };
+  tools: string[];
+  skills: string[];
 }
 
 interface SwarmTask {
@@ -65,7 +67,9 @@ const initialAgents: SwarmAgent[] = [
       tasksCompleted: 145,
       avgResponseTime: 0.8,
       successRate: 0.95
-    }
+    },
+    tools: ['Tool A', 'Tool B'],
+    skills: ['Skill A', 'Skill B']
   },
   {
     id: 'agent-2',
@@ -87,7 +91,9 @@ const initialAgents: SwarmAgent[] = [
       tasksCompleted: 89,
       avgResponseTime: 1.2,
       successRate: 0.92
-    }
+    },
+    tools: ['Tool C', 'Tool D'],
+    skills: ['Skill C', 'Skill D']
   }
 ];
 

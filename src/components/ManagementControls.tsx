@@ -10,6 +10,9 @@ interface PendingApproval {
   status: 'pending' | 'approved' | 'rejected';
   timestamp: string;
   priority: 'low' | 'medium' | 'high';
+  tools?: string[];
+  skills?: string[];
+  functions?: string[];
 }
 
 const pendingApprovals: PendingApproval[] = [
@@ -22,6 +25,9 @@ const pendingApprovals: PendingApproval[] = [
     status: 'pending',
     timestamp: new Date().toISOString(),
     priority: 'high',
+    tools: ['VSCode', 'Terminal'],
+    skills: ['Code Editing', 'File Management'],
+    functions: ['Initialize', 'Setup']
   },
   {
     id: '2',
@@ -32,6 +38,9 @@ const pendingApprovals: PendingApproval[] = [
     status: 'pending',
     timestamp: new Date().toISOString(),
     priority: 'medium',
+    tools: ['Task Manager', 'Code Generator'],
+    skills: ['Task Handling', 'Code Generation'],
+    functions: ['Deploy', 'Initialize']
   }
 ];
 
@@ -122,6 +131,24 @@ export default function ManagementControls() {
                       </div>
                       <h4 className="font-medium text-white">{approval.title}</h4>
                       <p className="text-gray-300">{approval.description}</p>
+                      {approval.tools && (
+                        <div>
+                          <h5 className="text-sm font-medium text-gray-200">Tools:</h5>
+                          <p className="text-gray-300">{approval.tools.join(', ')}</p>
+                        </div>
+                      )}
+                      {approval.skills && (
+                        <div>
+                          <h5 className="text-sm font-medium text-gray-200">Skills:</h5>
+                          <p className="text-gray-300">{approval.skills.join(', ')}</p>
+                        </div>
+                      )}
+                      {approval.functions && (
+                        <div>
+                          <h5 className="text-sm font-medium text-gray-200">Functions:</h5>
+                          <p className="text-gray-300">{approval.functions.join(', ')}</p>
+                        </div>
+                      )}
                     </div>
                     <div className="flex gap-2">
                       <button
