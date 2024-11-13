@@ -148,9 +148,14 @@
   .agent-message-system {
     @apply border-purple-600 bg-purple-900/20;
   }
+
+  /* Loading animation */
+  .animate-[loading_2s_ease-in-out_infinite] {
+    animation: loading 2s ease-in-out infinite;
+  }
 }
 
-/* Loading animation */
+/* Loading animation keyframes */
 @keyframes loading {
   0% {
     width: 0%;
