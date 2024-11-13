@@ -149,3 +149,19 @@
     @apply border-purple-600 bg-purple-900/20;
   }
 }
+
+/* Loading animation */
+@keyframes loading {
+  0% {
+    width: 0%;
+    margin-left: 0;
+  }
+  50% {
+    width: 100%;
+    margin-left: 0;
+  }
+  100% {
+    width: 0%;
+    margin-left: 100%;
+  }
+}

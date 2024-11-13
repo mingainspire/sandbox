@@ -11,14 +11,32 @@ import SystemSettings from './components/SystemSettings';
 import ActiveSystems from './components/ActiveSystems';
 import NetworkHub from './components/NetworkHub';
 import EventTriggerBox from './components/EventTriggerBox';
+import LoadingScreen from './components/LoadingScreen';
 
 function App() {
   const [activeView, setActiveView] = useState<'dashboard' | 'guide' | 'history' | 'timeline' | 'settings' | 'active' | 'network'>('active');
   const [darkMode, setDarkMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    // Simulate system initialization
+    const initializeSystem = async () => {
+      try {
+        // Add artificial delay to show loading screen
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Failed to initialize system:', error);
+        // Keep loading screen with error state if needed
+      }
+    };
+
+    initializeSystem();
+  }, []);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -56,6 +74,10 @@ function App() {
         );
     }
   };
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className={`min-h-screen bg-gray-900 ${darkMode ? 'dark' : ''}`}>
