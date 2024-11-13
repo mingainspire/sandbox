@@ -12,6 +12,9 @@ const agents: Agent[] = [
     performance: 95,
     lastActive: '2024-03-10T10:30:00Z',
     tasksCompleted: 234,
+    tools: ['Tool A', 'Tool B'],
+    skills: ['Skill A', 'Skill B'],
+    functions: ['Function A', 'Function B'],
   },
   {
     id: '2',
@@ -21,6 +24,9 @@ const agents: Agent[] = [
     performance: 88,
     lastActive: '2024-03-10T09:45:00Z',
     tasksCompleted: 189,
+    tools: ['Tool C', 'Tool D'],
+    skills: ['Skill C', 'Skill D'],
+    functions: ['Function C', 'Function D'],
   },
   {
     id: '3',
@@ -30,6 +36,9 @@ const agents: Agent[] = [
     performance: 76,
     lastActive: '2024-03-10T08:15:00Z',
     tasksCompleted: 156,
+    tools: ['Tool E', 'Tool F'],
+    skills: ['Skill E', 'Skill F'],
+    functions: ['Function E', 'Function F'],
   },
 ];
 
@@ -86,6 +95,18 @@ export default function AgentsList() {
               <div>
                 <p className="text-sm text-gray-500">Tasks Completed</p>
                 <p className="font-medium">{agent.tasksCompleted}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Tools</p>
+                <p className="font-medium">{agent.tools.join(', ')}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Skills</p>
+                <p className="font-medium">{agent.skills.join(', ')}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Functions</p>
+                <p className="font-medium">{agent.functions.join(', ')}</p>
               </div>
             </div>
           </div>
